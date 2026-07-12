@@ -1,0 +1,3 @@
+- Vzal jsem si inspiraci z aktuálního řešení NFCtronu a připravuji si detailní funkčnost aplikace a jejich features.
+- Paletu barev pro práci s brandingem ve figmě.
+- Primární font a barvy nastaveny.
