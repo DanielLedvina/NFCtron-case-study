@@ -1,3 +1,9 @@
-- Vzal jsem si inspiraci z aktuálního řešení NFCtronu a připravuji si detailní funkčnost aplikace a jejich features.
-- Paletu barev pro práci s brandingem ve figmě.
-- Primární font a barvy nastaveny.
+- Inspirace aktuálním řešením NFCtronu, příprava detailní funkčnosti aplikace a jejích features.
+- Paleta barev pro práci s brandingem ve Figmě.
+- Nastavení primárního fontu a barev.
+- Vytvoření interfaců pro jasnou strukturu příchozích dat z API.
+- Vylepšení error handlingu v order.ts přes vlastní `ApiError` třídu rozšiřující `Error`.
+- Sjednocení chybových stavů (timeout přes `AbortController`, síťová chyba, neplatná HTTP odpověď) do jednoho konzistentního formátu chyby.
+- Přidání validace přes Zod, která ověřuje, že data přicházející z fetche odpovídají očekávanému formátu.
+- Připravení API endpointů včetně error handlingu a struktury odpovědí ze serveru.
+-

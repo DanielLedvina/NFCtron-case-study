@@ -1,4 +1,3 @@
-import { Seat } from "@/components/Seat.tsx";
 import {
   Avatar,
   AvatarFallback,
@@ -16,9 +15,16 @@ import {
 } from "@/components/ui/dropdown-menu.tsx";
 import "./App.css";
 import { Toaster, toast } from "@/components/ui/toast";
+import { getEventTickets } from "./api/tickets";
+import { getEvent } from "./api/event";
+import { createOrder } from "./api/order";
+import { useState } from "react";
+import type { Event, EventTickets } from "@/types";
 
 function App() {
   const isLoggedIn = false;
+  const [event, setEvent] = useState<Event | null>(null);
+  const [ticket, setTicket] = useState<EventTickets | null>(null);
 
   return (
     <div className="flex flex-col grow">
@@ -85,9 +91,11 @@ function App() {
             }}
           >
             {/*	seating map */}
-            {Array.from({ length: 100 }, (_, i) => (
-              <Seat key={i} />
-            ))}
+            {ticket?.seatRows.map((seatRow) =>
+              seatRow.seats.map((seat) => (
+                <p key={seat.seatId}>{seat.place}</p>
+              )),
+            )}
           </div>
 
           {/* event info */}
@@ -105,6 +113,13 @@ function App() {
               dolorem eius eos fuga laborum nisi officia pariatur quidem
               repellendus, reprehenderit sapiente, sed tenetur vel voluptatibus?
             </p>
+            {event && <p>{event.eventId}</p>}
+            {ticket &&
+              ticket.ticketTypes.map((ticketType) => (
+                <p key={ticketType.id}>
+                  {ticketType.name} - {ticketType.price} CZK
+                </p>
+              ))}
             {/* add to calendar button */}
             <Button variant="secondary" disabled>
               Add to calendar
@@ -124,6 +139,7 @@ function App() {
           </div>
 
           {/* checkout button */}
+
           <Button
             variant="default"
             onClick={() =>
@@ -132,6 +148,49 @@ function App() {
           >
             Checkout now
           </Button>
+          <Button variant="default" onClick={() => getEvent().then(setEvent)}>
+            Get Event ID
+          </Button>
+
+          <Button
+            variant="default"
+            onClick={() => {
+              if (event) getEventTickets(event.eventId).then(setTicket);
+            }}
+          >
+            Get Event ID
+          </Button>
+
+          <Button
+            variant="default"
+            onClick={() => {
+              if (!event || !ticket) return;
+              const ticketType = ticket.ticketTypes[0];
+              const seat = ticket.seatRows[0]?.seats[0];
+              if (!ticketType || !seat) return;
+
+              createOrder({
+                eventId: event.eventId,
+                tickets: [
+                  { ticketTypeId: ticketType.id, seatId: seat.seatId },
+                ],
+                user: {
+                  email: "test@example.com",
+                  firstName: "Test",
+                  lastName: "User",
+                },
+              })
+                .then((order) =>
+                  toast.add({ description: `Order created: ${order.orderId}` }),
+                )
+                .catch((error) =>
+                  toast.add({ description: `Order failed: ${error.message}` }),
+                );
+            }}
+          >
+            Create Order
+          </Button>
+
           <Toaster></Toaster>
         </div>
       </nav>
