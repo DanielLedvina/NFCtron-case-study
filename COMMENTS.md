@@ -5,5 +5,6 @@
 - Vylepšení error handlingu v order.ts přes vlastní `ApiError` třídu rozšiřující `Error`.
 - Sjednocení chybových stavů (timeout přes `AbortController`, síťová chyba, neplatná HTTP odpověď) do jednoho konzistentního formátu chyby.
 - Přidání validace přes Zod, která ověřuje, že data přicházející z fetche odpovídají očekávanému formátu.
-- Připravení API endpointů včetně error handlingu a struktury odpovědí ze serveru.
--
+- Připravení API endpointů pro vstupenky včetně error handlingu a struktury odpovědí ze serveru.
+- API endpoint pro autentifikaci, a úprava konvence funkcí
+- Přidání .env souboru pro credentials a do gitignoru

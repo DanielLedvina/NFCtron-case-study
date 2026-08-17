@@ -20,6 +20,7 @@ import { getEvent } from "./api/event";
 import { createOrder } from "./api/order";
 import { useState } from "react";
 import type { Event, EventTickets } from "@/types";
+import { login } from "./api/auth";
 
 function App() {
   const isLoggedIn = false;
@@ -162,6 +163,18 @@ function App() {
           </Button>
 
           <Button
+            onClick={async () =>
+              console.log(
+                await login({
+                  email: import.meta.env.VITE_NFCTRON_EMAIL,
+                  password: import.meta.env.VITE_NFCTRON_PASSWORD,
+                }),
+              )
+            }
+          >
+            Login
+          </Button>
+          <Button
             variant="default"
             onClick={() => {
               if (!event || !ticket) return;
@@ -171,9 +184,7 @@ function App() {
 
               createOrder({
                 eventId: event.eventId,
-                tickets: [
-                  { ticketTypeId: ticketType.id, seatId: seat.seatId },
-                ],
+                tickets: [{ ticketTypeId: ticketType.id, seatId: seat.seatId }],
                 user: {
                   email: "test@example.com",
                   firstName: "Test",
