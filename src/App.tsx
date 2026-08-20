@@ -15,18 +15,17 @@ import {
 } from "@/components/ui/dropdown-menu.tsx";
 import "./App.css";
 import { Toaster, toast } from "@/components/ui/toast";
-import { getEventTickets } from "./api/tickets";
-import { getEvent } from "./api/event";
-import { createOrder } from "./api/order";
-import { useState } from "react";
-import type { Event, EventTickets } from "@/types";
+
 import { login } from "./api/auth";
+import { useEventDetail } from "./hooks/useEventDetail";
 
 function App() {
   const isLoggedIn = false;
-  const [event, setEvent] = useState<Event | null>(null);
-  const [ticket, setTicket] = useState<EventTickets | null>(null);
 
+  const { event, ticket, isPending, error } = useEventDetail();
+
+  if (isPending) return "Loading...";
+  if (error) return "An error has occurred: " + error.message;
   return (
     <div className="flex flex-col grow">
       {/* header (wrapper) */}
@@ -92,9 +91,17 @@ function App() {
             }}
           >
             {/*	seating map */}
-            {ticket?.seatRows.map((seatRow) =>
+            <div
+              style={{
+                borderRadius: "999px",
+                backgroundColor: "var(--color-primary-100)",
+              }}
+            ></div>
+            {ticket?.seatRows.flatMap((seatRow) =>
               seatRow.seats.map((seat) => (
-                <p key={seat.seatId}>{seat.place}</p>
+                <div key={seat.seatId}>
+                  {seatRow.seatRow}/{seat.place} — {seat.ticketTypeId}
+                </div>
               )),
             )}
           </div>
@@ -105,7 +112,7 @@ function App() {
             <div className="bg-zinc-100 rounded-md h-32" />
             {/* event name */}
             <h1 className="text-xl text-zinc-900 font-semibold">
-              [event-name]
+              {event?.namePub}
             </h1>
             {/* event description */}
             <p className="text-sm text-zinc-500">
@@ -114,13 +121,6 @@ function App() {
               dolorem eius eos fuga laborum nisi officia pariatur quidem
               repellendus, reprehenderit sapiente, sed tenetur vel voluptatibus?
             </p>
-            {event && <p>{event.eventId}</p>}
-            {ticket &&
-              ticket.ticketTypes.map((ticketType) => (
-                <p key={ticketType.id}>
-                  {ticketType.name} - {ticketType.price} CZK
-                </p>
-              ))}
             {/* add to calendar button */}
             <Button variant="secondary" disabled>
               Add to calendar
@@ -149,18 +149,6 @@ function App() {
           >
             Checkout now
           </Button>
-          <Button variant="default" onClick={() => getEvent().then(setEvent)}>
-            Get Event ID
-          </Button>
-
-          <Button
-            variant="default"
-            onClick={() => {
-              if (event) getEventTickets(event.eventId).then(setTicket);
-            }}
-          >
-            Get Event ID
-          </Button>
 
           <Button
             onClick={async () =>
@@ -173,33 +161,6 @@ function App() {
             }
           >
             Login
-          </Button>
-          <Button
-            variant="default"
-            onClick={() => {
-              if (!event || !ticket) return;
-              const ticketType = ticket.ticketTypes[0];
-              const seat = ticket.seatRows[0]?.seats[0];
-              if (!ticketType || !seat) return;
-
-              createOrder({
-                eventId: event.eventId,
-                tickets: [{ ticketTypeId: ticketType.id, seatId: seat.seatId }],
-                user: {
-                  email: "test@example.com",
-                  firstName: "Test",
-                  lastName: "User",
-                },
-              })
-                .then((order) =>
-                  toast.add({ description: `Order created: ${order.orderId}` }),
-                )
-                .catch((error) =>
-                  toast.add({ description: `Order failed: ${error.message}` }),
-                );
-            }}
-          >
-            Create Order
           </Button>
 
           <Toaster></Toaster>
