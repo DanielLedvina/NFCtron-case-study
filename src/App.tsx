@@ -14,30 +14,40 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu.tsx";
 import "./App.css";
-import { Toaster, toast } from "@/components/ui/toast";
-
-import { login } from "./api/auth";
+import { Toaster } from "@/components/ui/toast";
 import { useEventDetail } from "./hooks/useEventDetail";
+import { EventCard } from "./components/EventCard";
+import { LoginDrawer } from "./components/LoginDrawer";
+import { CheckoutFooter } from "./components/CheckoutFooter";
+import { ArrowRight } from "lucide-react";
+import { Seat } from "./components/Seat";
+import { useMediaQuery } from "./hooks/useMediaQuery";
+import { useState } from "react";
 
 function App() {
   const isLoggedIn = false;
+  const isDesktop = useMediaQuery("(min-width: 1280px)");
+  const [visible, setVisible] = useState(false);
+  function selectedTicket(id: string) {
+    console.log(id);
+    setVisible(!visible);
+  }
 
   const { event, ticket, isPending, error } = useEventDetail();
 
   if (isPending) return "Loading...";
   if (error) return "An error has occurred: " + error.message;
+
   return (
     <div className="flex flex-col grow">
       {/* header (wrapper) */}
-      <nav className="sticky top-0 left-0 right-0 bg-white border-b border-zinc-200 flex justify-center">
+      <nav className="fixed top-0 left-0 right-0 z-10 flex justify-center md:mt-4 md:px-4">
         {/* inner content */}
-        <div className="max-w-screen-lg p-4 grow flex items-center justify-between gap-3">
-          {/* application/author image/logo placeholder */}
+        <div className="max-w-screen-lg md:mx-auto md:w-full w-full md:rounded-full bg-white/70 backdrop-blur-md shadow-sm border border-white/40 p-2 pl-4 grow flex items-center justify-between gap-3">
+          {/* application/author image/logo */}
           <div className="max-w-[250px] w-full flex">
-            <div className="bg-zinc-100 rounded-md size-12" />
+            <img src="/nfctron-logo.png" alt="NFCtron" className="h-8" />
           </div>
-          {/* app/author title/name placeholder */}
-          <div className="bg-zinc-100 rounded-md h-8 w-[200px]" />
           {/* user menu */}
           <div className="max-w-[250px] w-full flex justify-end">
             {isLoggedIn ? (
@@ -70,18 +80,26 @@ function App() {
                 </DropdownMenuContent>
               </DropdownMenu>
             ) : (
-              <Button disabled variant="secondary">
-                Login or register
-              </Button>
+              <LoginDrawer
+                trigger={
+                  <Button
+                    size="lg"
+                    className="rounded-full bg-primary-100 text-white hover:bg-primary-200 px-5 py-5 text-sm"
+                  >
+                    Přihlásit se
+                    <ArrowRight />
+                  </Button>
+                }
+              />
             )}
           </div>
         </div>
       </nav>
 
       {/* main body (wrapper) */}
-      <main className="grow flex flex-col justify-center">
+      <main className="grow flex flex-col justify-center pt-16 md:pt-20">
         {/* inner content */}
-        <div className="max-w-screen-lg m-auto p-4 flex items-start grow gap-3 w-full">
+        <div className="max-w-screen-lg m-auto p-4 flex flex-col xl:flex-row items-start grow gap-3 w-full">
           {/* seating card */}
           <div
             className="bg-white rounded-md grow grid p-3 self-stretch shadow-sm"
@@ -91,81 +109,37 @@ function App() {
             }}
           >
             {/*	seating map */}
-            <div
-              style={{
-                borderRadius: "999px",
-                backgroundColor: "var(--color-primary-100)",
-              }}
-            ></div>
             {ticket?.seatRows.flatMap((seatRow) =>
               seatRow.seats.map((seat) => (
-                <div key={seat.seatId}>
-                  {seatRow.seatRow}/{seat.place} — {seat.ticketTypeId}
-                </div>
+                <Seat
+                  key={seat.seatId}
+                  seat={seat}
+                  ticketType={ticket.ticketTypes.find(
+                    (ticketType) => ticketType.id === seat.ticketTypeId,
+                  )}
+                  isInCart={false}
+                  onSeatSelect={selectedTicket}
+                />
               )),
             )}
           </div>
 
-          {/* event info */}
-          <aside className="w-full max-w-sm bg-white rounded-md shadow-sm p-3 flex flex-col gap-2">
-            {/* event header image placeholder */}
-            <div className="bg-zinc-100 rounded-md h-32" />
-            {/* event name */}
-            <h1 className="text-xl text-zinc-900 font-semibold">
-              {event?.namePub}
-            </h1>
-            {/* event description */}
-            <p className="text-sm text-zinc-500">
-              [event-description]: Lorem ipsum dolor sit amet, consectetur
-              adipisicing elit. Aliquam aliquid asperiores beatae deserunt dicta
-              dolorem eius eos fuga laborum nisi officia pariatur quidem
-              repellendus, reprehenderit sapiente, sed tenetur vel voluptatibus?
-            </p>
-            {/* add to calendar button */}
-            <Button variant="secondary" disabled>
-              Add to calendar
-            </Button>
-          </aside>
+          {event &&
+            (isDesktop ? (
+              <aside className="w-full max-w-sm">
+                <EventCard event={event} />
+              </aside>
+            ) : (
+              <div className="w-full">
+                <EventCard event={event} />
+              </div>
+            ))}
         </div>
       </main>
 
-      {/* bottom cart affix (wrapper) */}
-      <nav className="sticky bottom-0 left-0 right-0 bg-white border-t border-zinc-200 flex justify-center">
-        {/* inner content */}
-        <div className="max-w-screen-lg p-6 flex justify-between items-center gap-4 grow">
-          {/* total in cart state */}
-          <div className="flex flex-col">
-            <span>Total for [?] tickets</span>
-            <span className="text-2xl font-semibold">[?] CZK</span>
-          </div>
+      <CheckoutFooter isVisible={visible} />
 
-          {/* checkout button */}
-
-          <Button
-            variant="default"
-            onClick={() =>
-              toast.add({ description: "Event has been created." })
-            }
-          >
-            Checkout now
-          </Button>
-
-          <Button
-            onClick={async () =>
-              console.log(
-                await login({
-                  email: import.meta.env.VITE_NFCTRON_EMAIL,
-                  password: import.meta.env.VITE_NFCTRON_PASSWORD,
-                }),
-              )
-            }
-          >
-            Login
-          </Button>
-
-          <Toaster></Toaster>
-        </div>
-      </nav>
+      <Toaster />
     </div>
   );
 }
