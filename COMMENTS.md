@@ -10,3 +10,4 @@
 - Přidání .env souboru pro credentials a do gitignoru
 - Přidání blurovaného galaxy pozadí a loga do `public/`, doladění barevné palety (přidán `primary-50`) a základního base stylingu.
 - Přidání shadcn primitivů `drawer`, `input`, `label` pro připravovaný login formulář.
+- Přidání komponenty `EventCard` (detail akce, datum/místo, popis, sdílení) a utility `formatEventDate` pro formátovaný čas.
