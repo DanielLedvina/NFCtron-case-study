@@ -8,3 +8,4 @@
 - Připravení API endpointů pro vstupenky včetně error handlingu a struktury odpovědí ze serveru.
 - API endpoint pro autentifikaci, a úprava konvence funkcí
 - Přidání .env souboru pro credentials a do gitignoru
+- Přidání blurovaného galaxy pozadí a loga do `public/`, doladění barevné palety (přidán `primary-50`) a základního base stylingu.
