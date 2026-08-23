@@ -12,3 +12,7 @@
 - Přidání shadcn primitivů `drawer`, `input`, `label` pro připravovaný login formulář.
 - Přidání komponenty `EventCard` (detail akce, datum/místo, popis, sdílení) a utility `formatEventDate` pro formátovaný čas.
 - Přidání `LoginDrawer` s formulářem pro přihlášení (napojeno na `login` API) a `useMediaQuery` hooku pro responzivní přepínání mezi Dialogem (desktop) a Drawerem (mobil).
+- `Seat` rozšířen o doménová data (`seat`, `ticketType`, `isInCart`, `onSeatSelect`) místo hardcoded hodnot
+- Přidán `CheckoutFooter` s animovaným zajetím zespodu
+- Přepracován layout navigace v `App.tsx`
+- Nahrazen nepoužitý `SeatDialog` scaffold, nastaven `staleTime` na React Query klientovi proti zbytečným refetchům při přepínání tabů.
