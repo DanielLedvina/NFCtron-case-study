@@ -11,3 +11,4 @@
 - Přidání blurovaného galaxy pozadí a loga do `public/`, doladění barevné palety (přidán `primary-50`) a základního base stylingu.
 - Přidání shadcn primitivů `drawer`, `input`, `label` pro připravovaný login formulář.
 - Přidání komponenty `EventCard` (detail akce, datum/místo, popis, sdílení) a utility `formatEventDate` pro formátovaný čas.
+- Přidání `LoginDrawer` s formulářem pro přihlášení (napojeno na `login` API) a `useMediaQuery` hooku pro responzivní přepínání mezi Dialogem (desktop) a Drawerem (mobil).
