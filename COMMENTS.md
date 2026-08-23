@@ -9,3 +9,4 @@
 - API endpoint pro autentifikaci, a úprava konvence funkcí
 - Přidání .env souboru pro credentials a do gitignoru
 - Přidání blurovaného galaxy pozadí a loga do `public/`, doladění barevné palety (přidán `primary-50`) a základního base stylingu.
+- Přidání shadcn primitivů `drawer`, `input`, `label` pro připravovaný login formulář.
