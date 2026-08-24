@@ -4,6 +4,8 @@ Aplikace pro nákup vstupenek na akci: detail akce, interaktivní mapa sedadel, 
 třífázový checkout (výběr sedadel → souhrn → platba). Postavena nad zadáním v
 [ASSIGNMENT.md](./ASSIGNMENT.md), API popsané v [API.md](./API.md).
 
+**Živé nasazení:** [nf-ctron-case-study.vercel.app](https://nf-ctron-case-study.vercel.app)
+
 <p align="center">
   <img src="./public/app-screen.png" alt="Úvodní obrazovka aplikace — světlý režim" width="420" />
   <img src="./public/app-screen-dark.png" alt="Úvodní obrazovka aplikace — tmavý režim" width="420" />

@@ -44,3 +44,4 @@
 - Do `README.md` přidány screenshoty aplikace (`public/app-screen(-dark).png`, `select-ticket.png` → `payment-success.png`) — úvodní obrazovka ve světlém/tmavém režimu a chronologický průběh nákupu krok za krokem.
 - V `index.html` nahrazen výchozí Vite favicon a title za `nfctron-logo.ico` a "NFCtron Tickets".
 - Do `README.md` přidána sekce Branding se screenshoty design systému z Figmy (`public/font.png`, `public/paleta-barev.png`) — dokládá, že paleta a typografie použitá v `App.css` vychází z připraveného brandingu, ne z náhodných hodnot.
+- Do `README.md` přidán odkaz na živé nasazení na Vercelu.
