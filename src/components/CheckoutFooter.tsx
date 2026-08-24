@@ -30,16 +30,16 @@ export const CheckoutFooter = ({
       )}
     >
       {/* inner content */}
-      <div className="max-w-screen-lg p-6 flex flex-wrap justify-between items-center gap-4 grow">
+      <div className="max-w-screen-lg p-4 sm:p-6 flex justify-between items-center gap-3 grow">
         {/* total in cart state */}
-        <div className="flex flex-col gap-0.5">
-          <span className="text-sm font-medium text-muted-foreground">
+        <div className="flex min-w-0 flex-col gap-0.5">
+          <span className="truncate text-sm font-medium text-muted-foreground">
             {t(
               itemCount === 1 ? "footer.itemsSingle" : "footer.itemsPlural",
               { count: itemCount },
             )}
           </span>
-          <span className="text-2xl font-bold text-foreground">
+          <span className="truncate text-lg font-bold text-foreground sm:text-2xl">
             {formatCurrency(totalAmount, currencyIso, dateLocale)}
           </span>
         </div>
@@ -47,7 +47,7 @@ export const CheckoutFooter = ({
         {/* checkout button */}
         <Button
           size="lg"
-          className="bg-primary-100 text-white hover:bg-primary-200"
+          className="shrink-0 bg-primary-100 text-white hover:bg-primary-200"
           onClick={onCheckout}
         >
           {buttonLabel ?? t("seat.continue")}

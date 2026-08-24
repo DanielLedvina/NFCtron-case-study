@@ -54,12 +54,12 @@ export const OrderSuccess = ({
                 {item.ticketType?.name}
               </span>
 
-              <div className="flex items-center gap-6">
+              <div className="flex items-center gap-3 sm:gap-6">
                 <div className="flex flex-col gap-1">
                   <span className="text-xs font-medium text-muted-foreground uppercase">
                     {t("summary.row")}
                   </span>
-                  <span className="text-2xl font-bold text-foreground">
+                  <span className="text-lg font-bold text-foreground sm:text-2xl">
                     {item.seatRow}
                   </span>
                 </div>
@@ -67,15 +67,15 @@ export const OrderSuccess = ({
                   <span className="text-xs font-medium text-muted-foreground uppercase">
                     {t("summary.seat")}
                   </span>
-                  <span className="text-2xl font-bold text-foreground">
+                  <span className="text-lg font-bold text-foreground sm:text-2xl">
                     {item.seat.place}
                   </span>
                 </div>
-                <div className="flex flex-col gap-1">
+                <div className="flex min-w-0 flex-col gap-1">
                   <span className="text-xs font-medium text-muted-foreground uppercase">
                     {t("summary.price")}
                   </span>
-                  <span className="text-2xl font-bold text-foreground">
+                  <span className="truncate text-lg font-bold text-foreground sm:text-2xl">
                     {item.ticketType &&
                       formatCurrency(
                         item.ticketType.price,

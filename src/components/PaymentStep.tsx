@@ -128,12 +128,17 @@ export const PaymentStep = ({
         </span>
       </div>
 
-      <div className="flex items-center justify-end gap-2">
-        <Button variant="outline" onClick={onBack} disabled={isSubmitting}>
+      <div className="flex flex-col-reverse gap-2 sm:flex-row sm:items-center sm:justify-end">
+        <Button
+          variant="outline"
+          onClick={onBack}
+          disabled={isSubmitting}
+          className="sm:w-auto"
+        >
           {t("payment.backToSummary")}
         </Button>
         <Button
-          className="bg-primary-100 text-white hover:bg-primary-200"
+          className="bg-primary-100 text-white hover:bg-primary-200 sm:w-auto"
           onClick={handlePay}
           disabled={isSubmitting || !contact}
         >
