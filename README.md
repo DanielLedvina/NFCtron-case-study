@@ -79,6 +79,19 @@ React 19, TypeScript, Vite, Tailwind CSS v4, Base UI (headless primitivy pod sha
 wrappery v `src/components/ui`), TanStack React Query, Zod (runtime validace API
 odpovědí), `react-zoom-pan-pinch` (zoom/pan mapy sedadel).
 
+## Branding
+
+Design systém navržený ve Figmě před samotnou implementací — paleta barev a typografie
+použité ke konzistenci UI a udržení brandové identity (promítnuto do `src/App.css`).
+
+<p align="center">
+  <img src="./public/font.png" alt="Font — Poppins" width="420" />
+  <img src="./public/paleta-barev.png" alt="Paleta barev" width="420" />
+</p>
+
+**Font** — [Poppins](https://fonts.google.com/specimen/Poppins), primární text napříč
+celým UI (`--font-sans`, načtené z Google Fonts).
+
 ## Struktura
 
 ```
