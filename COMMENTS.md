@@ -25,3 +25,5 @@
 - `OrderSummary` zobrazuje vstupenky v košíku ve stylu vstupenky (barevný štítek typu, potvrzovací dialog při odebrání).
 - `PaymentStep` umožňuje dokončit objednávku přihlášeným uživatelem nebo jako host přes `GuestCheckoutForm`.
 - `CheckoutFooter` upraven na sdílenou komponentu pro navigaci mezi kroky s celkovou cenou.
+- Přidán `useAuth` hook, který přihlášeného uživatele ukládá do cookie, aby se nemusel přihlašovat opakovaně.
+- `LoginDrawer` upraven, aby přijímal `onLogin` callback místo přímého volání API, kvůli sdílení stavu s `useAuth`; zároveň vylepšeno UI (ikony v polích, brand hlavička) a připraveno na i18n.
