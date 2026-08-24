@@ -29,3 +29,6 @@
 - `LoginDrawer` upraven, aby přijímal `onLogin` callback místo přímého volání API, kvůli sdílení stavu s `useAuth`; zároveň vylepšeno UI (ikony v polích, brand hlavička) a připraveno na i18n.
 - `EventCard` doplněn o funkční tlačítko "Add to calendar" (`generateCalendarLink` vytváří Google Calendar odkaz), vloženou mapu místa konání, sekci s pořadatelem (odkaz na nfctron.com) a funkční ikony sdílení.
 - Přidán `Footer` s odkazy, kontaktem a sociálními ikonami, reagující na světlý/tmavý režim.
+- Sjednocen vzhled tlačítek na pill tvar (`rounded-full`) ve všech velikostech, zvětšena velikost `lg`.
+- Oprava z-indexu toast notifikací, které se dříve schovávaly za dialog/drawer.
+- Odstraněn konfliktní `prefers-color-scheme` blok z `index.css`, který kolidoval s novým theme přepínačem.
