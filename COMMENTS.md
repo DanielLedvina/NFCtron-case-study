@@ -20,3 +20,8 @@
 - Přidán zoom/pan přes `react-zoom-pan-pinch` s ovládacími tlačítky (přiblížit/oddálit/reset).
 - Sedadla barevně odlišena podle typu vstupenky (`ticketTypeColors`), s legendou nad mapou.
 - Detail sedadla v drawer přepracován do podoby vstupenky (perforace, barcode pruh, cena přes `formatCurrency`).
+- Přidán `useCart` hook pro správu košíku (přidání/odebrání/toggle vstupenky, celková částka).
+- Přidán 3-krokový checkout (`CheckoutStepper`, `OrderSummary`, `PaymentStep`) s navigací zpět/vpřed a validací kroku platba (nejde bez vstupenek v košíku).
+- `OrderSummary` zobrazuje vstupenky v košíku ve stylu vstupenky (barevný štítek typu, potvrzovací dialog při odebrání).
+- `PaymentStep` umožňuje dokončit objednávku přihlášeným uživatelem nebo jako host přes `GuestCheckoutForm`.
+- `CheckoutFooter` upraven na sdílenou komponentu pro navigaci mezi kroky s celkovou cenou.
