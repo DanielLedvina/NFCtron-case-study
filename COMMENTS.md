@@ -37,3 +37,4 @@
 - Barva scrollbaru sladěna s brand fialovou.
 - Přidán vlastní i18n systém (`translations.ts` slovník + `useLocale` hook) pro CS/EN přepínání, s uložením volby do `localStorage`.
 - `formatEventDate` upraven, aby respektoval aktuální locale místo natvrdo `cs-CZ`.
+- `App.tsx` zapojuje košík, checkout stepper, auth, theme a jazykový přepínač do jednoho celku; navigace ve stepperu umožňuje přeskočit zpět na souhrn, pokud v košíku již je alespoň jedna vstupenka; odebrání poslední vstupenky vrací na výběr sedadel.
