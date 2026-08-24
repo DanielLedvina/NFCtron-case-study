@@ -54,6 +54,10 @@ export const translations = {
     "payment.processing": "Zpracování…",
     "payment.pay": "Zaplatit",
 
+    "success.title": "Platba proběhla úspěšně",
+    "success.description": "Objednávka {{orderId}} byla zaplacena. Vaše vstupenky najdete níže.",
+    "success.continue": "Pokračovat na výběr sedadel",
+
     "footer.itemsSingle": "Celkem za {{count}} vstupenku",
     "footer.itemsPlural": "Celkem za {{count}} vstupenky",
 
@@ -146,6 +150,10 @@ export const translations = {
     "payment.backToSummary": "Back to summary",
     "payment.processing": "Processing…",
     "payment.pay": "Pay",
+
+    "success.title": "Payment successful",
+    "success.description": "Order {{orderId}} has been paid. Your tickets are listed below.",
+    "success.continue": "Continue to seat selection",
 
     "footer.itemsSingle": "Total for {{count}} ticket",
     "footer.itemsPlural": "Total for {{count}} tickets",

@@ -38,3 +38,6 @@
 - Přidán vlastní i18n systém (`translations.ts` slovník + `useLocale` hook) pro CS/EN přepínání, s uložením volby do `localStorage`.
 - `formatEventDate` upraven, aby respektoval aktuální locale místo natvrdo `cs-CZ`.
 - `App.tsx` zapojuje košík, checkout stepper, auth, theme a jazykový přepínač do jednoho celku; navigace ve stepperu umožňuje přeskočit zpět na souhrn, pokud v košíku již je alespoň jedna vstupenka; odebrání poslední vstupenky vrací na výběr sedadel.
+- `README.md` přepsán na popis hotového řešení (funkce, spuštění, struktura); původní zadání přesunuto do `ASSIGNMENT.md`.
+- Avatar v navigaci zjednodušen na samotnou ikonu velikosti ostatních tlačítek (`h-11 w-11`), jméno a e-mail přesunuty pouze do dropdown popoveru, hover sjednocen na neutrální `bg-muted`.
+- Přidán krok `success` do checkoutu: po zaplacení se zobrazí `OrderSuccess` se seznamem zakoupených vstupenek a tlačítkem zpět na výběr sedadel, místo okamžitého návratu na `seats`.

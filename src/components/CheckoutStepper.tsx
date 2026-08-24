@@ -9,7 +9,7 @@ import { cn } from "@/lib/utils";
 import { useLocale } from "@/hooks/useLocale";
 import type { TranslationKey } from "@/lib/i18n/translations";
 
-export type CheckoutStep = "seats" | "summary" | "payment";
+export type CheckoutStep = "seats" | "summary" | "payment" | "success";
 
 const STEPS: {
   id: CheckoutStep;

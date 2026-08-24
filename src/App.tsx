@@ -17,6 +17,7 @@ import { LoginDrawer } from "./components/LoginDrawer";
 import { CheckoutFooter } from "./components/CheckoutFooter";
 import { CheckoutStepper, type CheckoutStep } from "./components/CheckoutStepper";
 import { OrderSummary } from "./components/OrderSummary";
+import { OrderSuccess } from "./components/OrderSuccess";
 import { PaymentStep } from "./components/PaymentStep";
 import { ArrowRight, Globe, LogOut, Moon, Sun } from "lucide-react";
 import { SeatMap } from "./components/SeatMap";
@@ -27,6 +28,7 @@ import { useLocale } from "./hooks/useLocale";
 import { useTheme } from "./hooks/useTheme";
 import { useState } from "react";
 import type { CreateOrderResponse } from "@/types";
+import type { CartItem } from "@/hooks/useCart";
 
 function App() {
   const auth = useAuth();
@@ -35,6 +37,10 @@ function App() {
   const { theme, toggleTheme } = useTheme();
   const isDesktop = useMediaQuery("(min-width: 1280px)");
   const [step, setStep] = useState<CheckoutStep>("seats");
+  const [completedOrder, setCompletedOrder] = useState<{
+    order: CreateOrderResponse;
+    items: CartItem[];
+  } | null>(null);
   const isCheckoutFooterVisible =
     (step === "seats" || step === "summary") && cart.items.length > 0;
 
@@ -66,7 +72,13 @@ function App() {
     toast.add({
       description: t("app.orderPaid", { orderId: order.orderId }),
     });
+    setCompletedOrder({ order, items: cart.items });
     cart.clear();
+    setStep("success");
+  }
+
+  function handleContinueAfterSuccess() {
+    setCompletedOrder(null);
     setStep("seats");
   }
 
@@ -116,23 +128,15 @@ function App() {
                   render={
                     <button
                       type="button"
-                      className="flex items-center gap-2 rounded-full border border-transparent p-1 pr-3 transition-colors hover:border-primary-100/20 hover:bg-primary-50 data-popup-open:border-primary-100/20 data-popup-open:bg-primary-50"
+                      aria-label={`${auth.user.firstName} ${auth.user.lastName}`}
+                      className="flex h-11 w-11 items-center justify-center rounded-full transition-colors hover:bg-muted data-popup-open:bg-muted"
                     >
-                      <Avatar className="after:border-none">
+                      <Avatar size="lg" className="after:border-none">
                         <AvatarFallback className="bg-primary-100 text-white">
                           {auth.user.firstName[0]}
                           {auth.user.lastName[0]}
                         </AvatarFallback>
                       </Avatar>
-
-                      <div className="flex flex-col text-left">
-                        <span className="text-sm font-medium text-foreground">
-                          {auth.user.firstName} {auth.user.lastName}
-                        </span>
-                        <span className="text-xs text-muted-foreground">
-                          {auth.user.email}
-                        </span>
-                      </div>
                     </button>
                   }
                 />
@@ -190,14 +194,16 @@ function App() {
         <div className="max-w-screen-lg m-auto p-4 flex flex-col xl:flex-row items-stretch grow gap-3 w-full">
           {/* seating card / checkout flow */}
           <div className="bg-card rounded-md min-w-0 xl:w-0 grow shadow-sm flex flex-col overflow-hidden">
-            <CheckoutStepper
-              currentStep={step}
-              onStepClick={(nextStep) => {
-                if (nextStep === "payment" && cart.items.length === 0) return;
-                setStep(nextStep);
-              }}
-              canReachSummary={cart.items.length > 0}
-            />
+            {step !== "success" && (
+              <CheckoutStepper
+                currentStep={step}
+                onStepClick={(nextStep) => {
+                  if (nextStep === "payment" && cart.items.length === 0) return;
+                  setStep(nextStep);
+                }}
+                canReachSummary={cart.items.length > 0}
+              />
+            )}
 
             {step === "seats" && event && ticket && (
               <SeatMap
@@ -231,6 +237,16 @@ function App() {
                 totalAmount={cart.totalAmount}
                 onBack={() => setStep("summary")}
                 onOrderCreated={handleOrderCreated}
+              />
+            )}
+
+            {step === "success" && event && completedOrder && (
+              <OrderSuccess
+                orderId={completedOrder.order.orderId}
+                items={completedOrder.items}
+                ticketTypes={ticket?.ticketTypes ?? []}
+                currencyIso={event.currencyIso}
+                onContinue={handleContinueAfterSuccess}
               />
             )}
           </div>
