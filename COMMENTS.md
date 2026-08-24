@@ -41,3 +41,4 @@
 - `README.md` přepsán na popis hotového řešení (funkce, spuštění, struktura); původní zadání přesunuto do `ASSIGNMENT.md`.
 - Avatar v navigaci zjednodušen na samotnou ikonu velikosti ostatních tlačítek (`h-11 w-11`), jméno a e-mail přesunuty pouze do dropdown popoveru, hover sjednocen na neutrální `bg-muted`.
 - Přidán krok `success` do checkoutu: po zaplacení se zobrazí `OrderSuccess` se seznamem zakoupených vstupenek a tlačítkem zpět na výběr sedadel, místo okamžitého návratu na `seats`.
+- Do `README.md` přidány screenshoty aplikace (`public/app-screen(-dark).png`, `select-ticket.png` → `payment-success.png`) — úvodní obrazovka ve světlém/tmavém režimu a chronologický průběh nákupu krok za krokem.

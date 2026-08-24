@@ -1,81 +1,94 @@
-# 🧑🏻‍🚀 NFCtron Frontend Case Study (Seating)
+# NFCtron Seating — řešení case study
 
-> 👋 Vítejte u zadání pro kandidáty na pozici ⚛️ **React a Typescript Frontend Developer** v NFCtron! Vaším úkolem bude
-> dokončit jednoduchou React aplikaci pro nákup vstupenek na akci.
+Aplikace pro nákup vstupenek na akci: detail akce, interaktivní mapa sedadel, košík a
+třífázový checkout (výběr sedadel → souhrn → platba). Postavena nad zadáním v
+[ASSIGNMENT.md](./ASSIGNMENT.md), API popsané v [API.md](./API.md).
 
-<img src="https://www.nfctron.com/data/blog/hr-mock.1733915983.jpg" alt="Buduj s NFCtron!" />
+<p align="center">
+  <img src="./public/app-screen.png" alt="Úvodní obrazovka aplikace — světlý režim" width="420" />
+  <img src="./public/app-screen-dark.png" alt="Úvodní obrazovka aplikace — tmavý režim" width="420" />
+</p>
 
-## 🎯 Úvod
+## Průběh nákupu
 
-Předpřipravili jsme pro vás základ aplikace s přednastavenými nástroji a hlavním layoutem (neznamená to ale však že jej nemůžete upravit dle vlastního uvážení).
-Zaroveň pro aplikaci existují připravené [API endpointy](./API.md), které budou potřebné pro získání dat k zobrazení.
+**1. Výběr sedadel**
+<p align="center"><img src="./public/select-ticket.png" alt="1. Výběr sedadel" width="600" /></p>
 
-**👉🏻 Vaší úlohou bude aplikaci funkčně dokončit.**
+**2. Rezervace vstupenky**
+<p align="center"><img src="./public/reserve-ticket.png" alt="2. Rezervace vstupenky" width="600" /></p>
 
-### High-Level popis aplikace
+**3. Obsah košíku**
+<p align="center"><img src="./public/cart-contents.png" alt="3. Obsah košíku" width="600" /></p>
 
-Aplikace by měla být jednoduchá SPA, která umožní zobrazit detail akce s mapou dostupných sedadel .
-Uživatel si po příchodu může prohlížet sedadla a libovolně je do svého nákupního košíku přidávat či naopak z něj odebírat.
-V tomto kroce má uživatel přehled o počtu vstupenek v košíku a jejich celkové hodnotě.
-Před dokončením objednávky je uživatel vyzván k vyplnění potřebných údajů, v případě že nevyužil možnost přihlášení se do svého účtu.
-Odesláním objednávky je pak uživatel informován o jejím vytvoření či případné chybě a tímto krokem je scope aplikace uzavřen.
+**4. Platba**
+<p align="center"><img src="./public/payment.png" alt="4. Platba" width="600" /></p>
 
-![Base Layout](./base-layout.png)
+**5. Potvrzení platby**
+<p align="center"><img src="./public/payment-success.png" alt="5. Potvrzení platby" width="600" /></p>
 
-## 🌱 Požadavky na Funkčnost
+## Funkce
 
-Aplikace by měla být schopna:
+### Ze zadání
 
--   [ ] Zobrazit onepage detail akce s relevantními údaji z API (obrázek, název, popis, datum, ...)
--   [ ] Zobrazit mapu dostupných sedadel (řada, sedadlo) z API.
-    -   zde není třeba mapu vykreslovat optimalizovaně, např. pomocí Canvas API/SVG, postačí jako HTML prvky
-    -   pozor na pořadí sedadel (ne vždy přijdou všechna sedadla po sobě 👀)
--   [ ] Po kliku na sedadlo umožnit jeho přidání do košíku (případně odebrání, pokud je již v košíku).
--   [ ] Spravovat obsah košíku s využitím promyšleného state managementu.
--   [ ] Zobrazit aktuální počet vstupenek v košíku a jejich celkovou hodnotu (ve správné měně a formátu).
--   [ ] Po kliknutí na "Koupit vstupenky" umožnit přihlášení nebo vyplnění potřebných údajů jako "host".
--   [ ] Vytvořit objednávku skrze API a zobrazit výsledek (úspěch nebo chybu).
+- Detail akce (obrázek, název, popis, datum/čas, místo s vloženou mapou) v `EventCard`.
+- Mapa sedadel v `SeatMap`/`Seat` — sedadla rozložená podle skutečné `seatRow`/`place`
+  pozice (grid respektuje mezery v číslování, ne pořadí v API odpovědi), barevně odlišená
+  podle typu vstupenky, s legendou a zoom/pan ovládáním.
+- Přidávání/odebírání sedadel z košíku (`useCart` hook), s potvrzovacím dialogem při
+  odebrání z přehledu košíku.
+- Třífázový checkout (`CheckoutStepper`) — výběr sedadel, souhrn objednávky, platba —
+  s navigací zpět i mezi již navštívenými kroky.
+- Přihlášení nebo dokončení objednávky jako host (`GuestCheckoutForm`), bez nutnosti
+  registrace.
+- Vytvoření objednávky přes `/order` API a zobrazení výsledku (toast s potvrzením nebo
+  chybovou hláškou).
 
-## 🌟 Bonusové Funkce
+### Navíc
 
--   [ ] Umožnit přidání akce do kalendáře.
--   [ ] Multijazyčnost aplikace.
+- **Perzistentní přihlášení** — po přihlášení se uživatel uloží do cookie (`useAuth`),
+  takže se nemusí přihlašovat opakovaně.
+- **Přidání do kalendáře** — tlačítko v `EventCard` generuje Google Calendar odkaz
+  s předvyplněnými údaji o akci.
+- **Multijazyčnost (CS/EN)** — vlastní i18n systém (`useLocale` + slovník v
+  `src/lib/i18n`), přepínač v navigaci, formátování data i měny podle zvoleného jazyka.
+- **Světlý/tmavý režim** — přepínač v navigaci, uložený v `localStorage`, respektuje
+  systémovou preferenci při první návštěvě.
+- Vstupenka v drawer detailu i v košíku stylizovaná jako skutečná vstupenka (perforace,
+  barcode pruh).
 
-_A dalším vychytávkám se meze nekladou! Ukažte, co umíte! 💫_
+## Spuštění
 
-## ☝🏻 Dobré vědět
+```bash
+npm install
+npm run dev
+```
 
--   Předpokládaná časová náročnost jsou **2-4 hodiny** čistého času (dle zkušenosti).
--   Aplikace musí být psána v jazyce **TypeScript**.
--   Využití jiných knihoven není zakázáno, naopak **je doporučeno**.
--   Ve výchozím kódu aplikace lze dělat naprosto libovolné změny.
--   Dbejte na kvalitu kódu, jeho čitelnost a strukturu.
+Aplikace běží proti veřejnému API na `nfctron-frontend-seating-case-study-2024.vercel.app`
+(viz [API.md](./API.md)) — žádná vlastní API konfigurace není potřeba. Pro přihlášení
+použijte testovací účet z [API.md](./API.md), nebo pokračujte jako host.
 
-## 📋 Kritéria Hodnocení
+```bash
+npm run build     # produkční build (tsc + vite build)
+npm run lint       # ESLint
+npm run preview    # náhled produkčního buildu
+```
 
--   Funkčnost a splnění funkčních požadavků.
--   Vzhled aplikace a responzivita na mobilních zařízeních.
--   Práce s daty, state management a volání API.
--   Kvalita, struktura a komentování/dokumentace kódu.
--   Práce s Git.
+## Technologie
 
-## 🪜 Jak postupovat?
+React 19, TypeScript, Vite, Tailwind CSS v4, Base UI (headless primitivy pod shadcn
+wrappery v `src/components/ui`), TanStack React Query, Zod (runtime validace API
+odpovědí), `react-zoom-pan-pinch` (zoom/pan mapy sedadel).
 
-1. Udělejte si fork tohoto repozitáře.
-2. Nastavte si své oblíbené vývojové prostředí.
-3. Dokončete úkol dle požadavků a zadání výše.
-4. Průběžně commitujte a pushujte své změny.
-5. Otestujte řádně svou aplikaci.
-6. Jakékoliv komentáře, či doplnění informací/dokumentace k vaší práci uvítáme v souboru `COMMENTS.md`.
-7. Svou aplikaci ideálně nasaďte na nějaký hosting (doporučujeme ▲ Vercel).
-8. Po dokončení úkolu přiložte do žádosti u našeho inzerátu [React a Typescript Frontend Developer | Incubation 2025](https://www.nfctron.com/cs/kariera/react-a-typescript-frontend-developer-incubation-2025):
-    - odkaz na Váš repozitář,
-    - a odkaz na nasazenou aplikaci.
+## Struktura
 
-📧 Máte-li jakékoli dotazy nebo potřebujete pomoci, neváhejte se na nás obrátit na emailu [hr@nfctron.com](mailto:hr@nfctron.com).
+```
+src/
+  api/            # fetch klienti (event, tickets, order, auth) + sdílený ApiError
+  components/     # feature komponenty (SeatMap, CheckoutStepper, EventCard, ...)
+  components/ui/  # shadcn/Base UI primitivy
+  hooks/          # useCart, useAuth, useLocale, useTheme, ...
+  lib/            # formátování, i18n slovník, utility funkce
+  types/          # typy odvozené ze Zod schémat
+```
 
----
-
-Přejeme vám hodně štěstí a těšíme se na vaše řešení! 🌟
-
-_–– Tým NFCtron_
+Poznámky k průběhu práce a rozhodnutím jsou v [COMMENTS.md](./COMMENTS.md).
