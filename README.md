@@ -1,36 +1,53 @@
-# NFCtron Seating — řešení case study
+# 🎟️ NFCtron Seating - Case study
 
-Aplikace pro nákup vstupenek na akci: detail akce, interaktivní mapa sedadel, košík a
-třífázový checkout (výběr sedadel → souhrn → platba). Postavena nad zadáním v
-[ASSIGNMENT.md](./ASSIGNMENT.md), API popsané v [API.md](./API.md).
+Moje řešení case study na pozici frontend developera pro NFCtron. Aplikace umožňuje
+vybrat konkrétní sedadlo na interaktivní mapě sálu, přidat ho do košíku a dokončit
+nákup přes třífázový checkout (výběr sedadel, souhrn objednávky, platba). Celý proces
+je vidět níže v sekci [Průběh nákupu](#-průběh-nákupu).
 
-**Živé nasazení:** [nf-ctron-case-study.vercel.app](https://nf-ctron-case-study.vercel.app)
+## 🔗 Odkazy
+
+- **Živé nasazení:** [nf-ctron-case-study.vercel.app](https://nf-ctron-case-study.vercel.app)
+- **Zadání:** [ASSIGNMENT.md](./ASSIGNMENT.md)
+- **API:** [API.md](./API.md)
+- **Poznámky k řešení:** [COMMENTS.md](./COMMENTS.md)
+
+## 👀 Preview
 
 <p align="center">
   <img src="./public/app-screen.png" alt="Úvodní obrazovka aplikace — světlý režim" width="420" />
-  <img src="./public/app-screen-dark.png" alt="Úvodní obrazovka aplikace — tmavý režim" width="420" />
 </p>
 
-## Průběh nákupu
+## 🎨 Branding
 
-**1. Výběr sedadel**
-<p align="center"><img src="./public/select-ticket.png" alt="1. Výběr sedadel" width="600" /></p>
+Design systém navržený ve Figmě před samotnou implementací — paleta barev a typografie
+použité ke konzistenci UI a udržení brandové identity (promítnuto do `src/App.css`).
 
-**2. Rezervace vstupenky**
-<p align="center"><img src="./public/reserve-ticket.png" alt="2. Rezervace vstupenky" width="600" /></p>
+**Barevná paleta** — odvozená z brandu NFCtronu, definovaná jako CSS proměnné
+(`--color-*`) pro konzistentní použití napříč komponentami a podporu světlého/tmavého
+režimu.
 
-**3. Obsah košíku**
-<p align="center"><img src="./public/cart-contents.png" alt="3. Obsah košíku" width="600" /></p>
+<p align="center">
+  <img src="./public/paleta-barev.png" alt="Paleta barev" width="420" />
+</p>
 
-**4. Platba**
-<p align="center"><img src="./public/payment.png" alt="4. Platba" width="600" /></p>
+**Font** — [Poppins](https://fonts.google.com/specimen/Poppins), primární text napříč
+celým UI (`--font-sans`, načtené z Google Fonts).
 
-**5. Potvrzení platby**
-<p align="center"><img src="./public/payment-success.png" alt="5. Potvrzení platby" width="600" /></p>
+<p align="center">
+  <img src="./public/font.png" alt="Font — Poppins" width="420" />
+</p>
 
-## Funkce
+**Inspirace** — vycházel jsem z aktuálního řešení NFCtronu a z dohledaných vizuálních
+reprezentací designů jiných aplikací.
 
-### Ze zadání
+<p align="center">
+  <img src="./public/inspiration.png" alt="Vizuální inspirace pro design" width="600" />
+</p>
+
+## ✨ Funkce
+
+### 📌 Ze zadání
 
 - Detail akce (obrázek, název, popis, datum/čas, místo s vloženou mapou) v `EventCard`.
 - Mapa sedadel v `SeatMap`/`Seat` — sedadla rozložená podle skutečné `seatRow`/`place`
@@ -45,7 +62,7 @@ třífázový checkout (výběr sedadel → souhrn → platba). Postavena nad za
 - Vytvoření objednávky přes `/order` API a zobrazení výsledku (toast s potvrzením nebo
   chybovou hláškou).
 
-### Navíc
+### 🌟 Navíc
 
 - **Perzistentní přihlášení** — po přihlášení se uživatel uloží do cookie (`useAuth`),
   takže se nemusí přihlašovat opakovaně.
@@ -58,7 +75,29 @@ třífázový checkout (výběr sedadel → souhrn → platba). Postavena nad za
 - Vstupenka v drawer detailu i v košíku stylizovaná jako skutečná vstupenka (perforace,
   barcode pruh).
 
-## Spuštění
+## 🛒 Průběh nákupu
+
+**1. Výběr sedadel**
+
+<p align="center"><img src="./public/select-ticket.png" alt="1. Výběr sedadel" width="600" /></p>
+
+**2. Rezervace vstupenky**
+
+<p align="center"><img src="./public/reserve-ticket.png" alt="2. Rezervace vstupenky" width="600" /></p>
+
+**3. Obsah košíku**
+
+<p align="center"><img src="./public/cart-contents.png" alt="3. Obsah košíku" width="600" /></p>
+
+**4. Platba**
+
+<p align="center"><img src="./public/payment.png" alt="4. Platba" width="600" /></p>
+
+**5. Potvrzení platby**
+
+<p align="center"><img src="./public/payment-success.png" alt="5. Potvrzení platby" width="600" /></p>
+
+## 🚀 Spuštění
 
 ```bash
 npm install
@@ -75,26 +114,13 @@ npm run lint       # ESLint
 npm run preview    # náhled produkčního buildu
 ```
 
-## Technologie
+## 🛠️ Technologie
 
 React 19, TypeScript, Vite, Tailwind CSS v4, Base UI (headless primitivy pod shadcn
 wrappery v `src/components/ui`), TanStack React Query, Zod (runtime validace API
 odpovědí), `react-zoom-pan-pinch` (zoom/pan mapy sedadel).
 
-## Branding
-
-Design systém navržený ve Figmě před samotnou implementací — paleta barev a typografie
-použité ke konzistenci UI a udržení brandové identity (promítnuto do `src/App.css`).
-
-<p align="center">
-  <img src="./public/font.png" alt="Font — Poppins" width="420" />
-  <img src="./public/paleta-barev.png" alt="Paleta barev" width="420" />
-</p>
-
-**Font** — [Poppins](https://fonts.google.com/specimen/Poppins), primární text napříč
-celým UI (`--font-sans`, načtené z Google Fonts).
-
-## Struktura
+## 📁 Struktura
 
 ```
 src/
@@ -106,4 +132,6 @@ src/
   types/          # typy odvozené ze Zod schémat
 ```
 
-Poznámky k průběhu práce a rozhodnutím jsou v [COMMENTS.md](./COMMENTS.md).
+---
+
+Made by **Daniel Ledvina** · case study pro NFCtron
