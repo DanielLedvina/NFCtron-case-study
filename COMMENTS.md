@@ -35,3 +35,5 @@
 - Přidán `useTheme` hook pro přepínání světlého/tmavého režimu s uložením do `localStorage` a respektováním systémové preference.
 - Brand fialová (`primary-100/200`), footer barvy a `--card` v `App.css` mají teď samostatné odstíny pro dark mode (výraznější kontrast).
 - Barva scrollbaru sladěna s brand fialovou.
+- Přidán vlastní i18n systém (`translations.ts` slovník + `useLocale` hook) pro CS/EN přepínání, s uložením volby do `localStorage`.
+- `formatEventDate` upraven, aby respektoval aktuální locale místo natvrdo `cs-CZ`.
