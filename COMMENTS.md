@@ -27,3 +27,4 @@
 - `CheckoutFooter` upraven na sdílenou komponentu pro navigaci mezi kroky s celkovou cenou.
 - Přidán `useAuth` hook, který přihlášeného uživatele ukládá do cookie, aby se nemusel přihlašovat opakovaně.
 - `LoginDrawer` upraven, aby přijímal `onLogin` callback místo přímého volání API, kvůli sdílení stavu s `useAuth`; zároveň vylepšeno UI (ikony v polích, brand hlavička) a připraveno na i18n.
+- `EventCard` doplněn o funkční tlačítko "Add to calendar" (`generateCalendarLink` vytváří Google Calendar odkaz), vloženou mapu místa konání, sekci s pořadatelem (odkaz na nfctron.com) a funkční ikony sdílení.
