@@ -5,9 +5,6 @@
 
 @theme {
   --font-sans: Poppins, system-ui, sans-serif;
-  --color-primary-50: #e4d9f7;
-  --color-primary-100: #5c32cc;
-  --color-primary-200: #25196a;
   --color-grey-100: #ffffff1a;
   --color-grey-200: #a1a1a1;
   --color-grey-300: #737373;
@@ -21,7 +18,14 @@
     --font-sans: "Geist Variable", sans-serif;
   }
   :root {
-    --background: var(--color-primary-50);
+    --brand-primary-50: #e4d9f7;
+    --brand-primary-100: #5c32cc;
+    --brand-primary-200: #25196a;
+    --footer-background: #ffffff;
+    --footer-foreground: oklch(0.145 0 0);
+    --footer-muted: oklch(0.556 0 0);
+    --footer-border: oklch(0.922 0 0);
+    --background: #ffffff;
     --foreground: oklch(0.145 0 0);
     --card: oklch(1 0 0);
     --card-foreground: oklch(0.145 0 0);
@@ -55,9 +59,16 @@
     --sidebar-ring: oklch(0.708 0 0);
   }
   .dark {
+    --brand-primary-50: #2c1f4a;
+    --brand-primary-100: #9d4edd;
+    --brand-primary-200: #c77dff;
+    --footer-background: #171717;
+    --footer-foreground: #ffffff;
+    --footer-muted: rgb(255 255 255 / 50%);
+    --footer-border: rgb(255 255 255 / 10%);
     --background: oklch(0.145 0 0);
     --foreground: oklch(0.985 0 0);
-    --card: oklch(0.205 0 0);
+    --card: oklch(0.32 0 0);
     --card-foreground: oklch(0.985 0 0);
     --popover: oklch(0.205 0 0);
     --popover-foreground: oklch(0.985 0 0);
@@ -105,10 +116,29 @@
   }
   html {
     @apply font-sans;
+    scrollbar-width: thin;
+    scrollbar-color: var(--color-primary-100) transparent;
+  }
+  html::-webkit-scrollbar {
+    width: 8px;
+  }
+  html::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  html::-webkit-scrollbar-thumb {
+    background-color: var(--color-primary-100);
+    border-radius: 999px;
   }
 }
 
 @theme inline {
+  --color-primary-50: var(--brand-primary-50);
+  --color-primary-100: var(--brand-primary-100);
+  --color-primary-200: var(--brand-primary-200);
+  --color-footer-background: var(--footer-background);
+  --color-footer-foreground: var(--footer-foreground);
+  --color-footer-muted: var(--footer-muted);
+  --color-footer-border: var(--footer-border);
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --color-card: var(--card);

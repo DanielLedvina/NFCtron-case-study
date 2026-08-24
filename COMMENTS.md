@@ -32,3 +32,6 @@
 - Sjednocen vzhled tlačítek na pill tvar (`rounded-full`) ve všech velikostech, zvětšena velikost `lg`.
 - Oprava z-indexu toast notifikací, které se dříve schovávaly za dialog/drawer.
 - Odstraněn konfliktní `prefers-color-scheme` blok z `index.css`, který kolidoval s novým theme přepínačem.
+- Přidán `useTheme` hook pro přepínání světlého/tmavého režimu s uložením do `localStorage` a respektováním systémové preference.
+- Brand fialová (`primary-100/200`), footer barvy a `--card` v `App.css` mají teď samostatné odstíny pro dark mode (výraznější kontrast).
+- Barva scrollbaru sladěna s brand fialovou.
