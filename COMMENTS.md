@@ -16,3 +16,7 @@
 - Přidán `CheckoutFooter` s animovaným zajetím zespodu
 - Přepracován layout navigace v `App.tsx`
 - Nahrazen nepoužitý `SeatDialog` scaffold, nastaven `staleTime` na React Query klientovi proti zbytečným refetchům při přepínání tabů.
+- Přepracována mapa sedadel (`SeatMap`) na grid podle skutečné `seatRow`/`place` pozice, aby se respektovaly mezery v číslování sedadel mezi řadami.
+- Přidán zoom/pan přes `react-zoom-pan-pinch` s ovládacími tlačítky (přiblížit/oddálit/reset).
+- Sedadla barevně odlišena podle typu vstupenky (`ticketTypeColors`), s legendou nad mapou.
+- Detail sedadla v drawer přepracován do podoby vstupenky (perforace, barcode pruh, cena přes `formatCurrency`).
