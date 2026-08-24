@@ -14,6 +14,7 @@ import { useEventDetail } from "./hooks/useEventDetail";
 import { EventCard } from "./components/EventCard";
 import { Footer } from "./components/Footer";
 import { LoginDrawer } from "./components/LoginDrawer";
+import { MobileNavDrawer } from "./components/MobileNavDrawer";
 import { CheckoutFooter } from "./components/CheckoutFooter";
 import { CheckoutStepper, type CheckoutStep } from "./components/CheckoutStepper";
 import { OrderSummary } from "./components/OrderSummary";
@@ -26,7 +27,7 @@ import { useAuth } from "./hooks/useAuth";
 import { useCart } from "./hooks/useCart";
 import { useLocale } from "./hooks/useLocale";
 import { useTheme } from "./hooks/useTheme";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import type { CreateOrderResponse } from "@/types";
 import type { CartItem } from "@/hooks/useCart";
 
@@ -43,6 +44,10 @@ function App() {
   } | null>(null);
   const isCheckoutFooterVisible =
     (step === "seats" || step === "summary") && cart.items.length > 0;
+
+  useEffect(() => {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  }, [step]);
 
   const { event, ticket, isPending, error } = useEventDetail();
 
@@ -90,7 +95,7 @@ function App() {
       {/* header (wrapper) */}
       <nav className="fixed top-0 left-0 right-0 z-10 flex justify-center md:mt-4 md:px-4">
         {/* inner content */}
-        <div className="max-w-screen-lg md:mx-auto md:w-full w-full md:rounded-full bg-background/70 backdrop-blur-md shadow-sm border border-white/40 h-16 px-2 pl-4 grow flex items-center justify-between gap-3">
+        <div className="max-w-screen-lg md:mx-auto md:w-full w-full md:rounded-full bg-background/70 backdrop-blur-md md:shadow-sm border-b border-border md:border h-16 px-2 pl-4 grow flex items-center justify-between gap-3">
           {/* application/author image/logo */}
           <div className="max-w-[250px] w-full flex">
             <div className="flex h-10 items-center rounded-full bg-black-100 px-4">
@@ -99,10 +104,23 @@ function App() {
           </div>
           {/* user menu */}
           <div className="max-w-[250px] w-full flex items-center justify-end gap-3">
+            <div className="md:hidden">
+              <MobileNavDrawer
+                theme={theme}
+                onToggleTheme={toggleTheme}
+                locale={locale}
+                onToggleLocale={() => setLocale(locale === "cs" ? "en" : "cs")}
+                user={auth.user}
+                isLoggedIn={auth.isLoggedIn}
+                onLogin={auth.login}
+                onLogout={auth.logout}
+              />
+            </div>
+
             <Button
               variant="outline"
               size="icon-lg"
-              className="h-11 w-11"
+              className="hidden h-11 w-11 md:flex"
               onClick={toggleTheme}
               aria-label={t("nav.toggleTheme")}
             >
@@ -112,7 +130,7 @@ function App() {
             <Button
               variant="outline"
               size="lg"
-              className="w-[4.5rem] px-3"
+              className="hidden w-[4.5rem] px-3 md:flex"
               onClick={() => setLocale(locale === "cs" ? "en" : "cs")}
               aria-label={t("nav.toggleLanguage")}
             >
@@ -122,68 +140,70 @@ function App() {
               </span>
             </Button>
 
-            {auth.isLoggedIn && auth.user ? (
-              <DropdownMenu>
-                <DropdownMenuTrigger
-                  render={
-                    <button
-                      type="button"
-                      aria-label={`${auth.user.firstName} ${auth.user.lastName}`}
-                      className="flex h-11 w-11 items-center justify-center rounded-full transition-colors hover:bg-muted data-popup-open:bg-muted"
-                    >
-                      <Avatar size="lg" className="after:border-none">
+            <div className="hidden md:contents">
+              {auth.isLoggedIn && auth.user ? (
+                <DropdownMenu>
+                  <DropdownMenuTrigger
+                    render={
+                      <button
+                        type="button"
+                        aria-label={`${auth.user.firstName} ${auth.user.lastName}`}
+                        className="flex h-11 w-11 items-center justify-center rounded-full transition-colors hover:bg-muted data-popup-open:bg-muted"
+                      >
+                        <Avatar size="lg" className="after:border-none">
+                          <AvatarFallback className="bg-primary-100 text-white">
+                            {auth.user.firstName[0]}
+                            {auth.user.lastName[0]}
+                          </AvatarFallback>
+                        </Avatar>
+                      </button>
+                    }
+                  />
+                  <DropdownMenuContent className="w-[260px] p-2">
+                    <div className="flex items-center gap-3 p-2">
+                      <Avatar className="after:border-none">
                         <AvatarFallback className="bg-primary-100 text-white">
                           {auth.user.firstName[0]}
                           {auth.user.lastName[0]}
                         </AvatarFallback>
                       </Avatar>
-                    </button>
+                      <div className="flex flex-col">
+                        <span className="text-sm font-semibold text-foreground">
+                          {auth.user.firstName} {auth.user.lastName}
+                        </span>
+                        <span className="text-xs text-muted-foreground">
+                          {auth.user.email}
+                        </span>
+                      </div>
+                    </div>
+                    <DropdownMenuSeparator />
+                    <DropdownMenuGroup>
+                      <DropdownMenuItem
+                        variant="destructive"
+                        onClick={auth.logout}
+                        className="py-2 focus:bg-destructive/5"
+                      >
+                        <LogOut />
+                        {t("nav.logout")}
+                      </DropdownMenuItem>
+                    </DropdownMenuGroup>
+                  </DropdownMenuContent>
+                </DropdownMenu>
+              ) : (
+                <LoginDrawer
+                  onLogin={auth.login}
+                  trigger={
+                    <Button
+                      size="lg"
+                      className="min-w-[9.5rem] justify-center bg-primary-100 text-white hover:bg-primary-200"
+                    >
+                      {t("nav.login")}
+                      <ArrowRight />
+                    </Button>
                   }
                 />
-                <DropdownMenuContent className="w-[260px] p-2">
-                  <div className="flex items-center gap-3 p-2">
-                    <Avatar className="after:border-none">
-                      <AvatarFallback className="bg-primary-100 text-white">
-                        {auth.user.firstName[0]}
-                        {auth.user.lastName[0]}
-                      </AvatarFallback>
-                    </Avatar>
-                    <div className="flex flex-col">
-                      <span className="text-sm font-semibold text-foreground">
-                        {auth.user.firstName} {auth.user.lastName}
-                      </span>
-                      <span className="text-xs text-muted-foreground">
-                        {auth.user.email}
-                      </span>
-                    </div>
-                  </div>
-                  <DropdownMenuSeparator />
-                  <DropdownMenuGroup>
-                    <DropdownMenuItem
-                      variant="destructive"
-                      onClick={auth.logout}
-                      className="py-2 focus:bg-destructive/5"
-                    >
-                      <LogOut />
-                      {t("nav.logout")}
-                    </DropdownMenuItem>
-                  </DropdownMenuGroup>
-                </DropdownMenuContent>
-              </DropdownMenu>
-            ) : (
-              <LoginDrawer
-                onLogin={auth.login}
-                trigger={
-                  <Button
-                    size="lg"
-                    className="min-w-[9.5rem] justify-center bg-primary-100 text-white hover:bg-primary-200"
-                  >
-                    {t("nav.login")}
-                    <ArrowRight />
-                  </Button>
-                }
-              />
-            )}
+              )}
+            </div>
           </div>
         </div>
       </nav>
@@ -272,7 +292,7 @@ function App() {
           itemCount={cart.items.length}
           totalAmount={cart.totalAmount}
           currencyIso={event.currencyIso}
-          buttonLabel={step === "seats" ? t("seat.continue") : t("stepper.summary.title")}
+          buttonLabel={step === "seats" ? t("seat.continue") : t("summary.continueToPayment")}
           onCheckout={step === "seats" ? handleGoToSummary : handleGoToPayment}
         />
       )}

@@ -45,3 +45,6 @@
 - V `index.html` nahrazen výchozí Vite favicon a title za `nfctron-logo.ico` a "NFCtron Tickets".
 - Do `README.md` přidána sekce Branding se screenshoty design systému z Figmy (`public/font.png`, `public/paleta-barev.png`) — dokládá, že paleta a typografie použitá v `App.css` vychází z připraveného brandingu, ne z náhodných hodnot.
 - Do `README.md` přidán odkaz na živé nasazení na Vercelu.
+- Mobilní navigace přepracována: pod `md` (kde nav ještě není pill) má spodní border místo borderu/stínu kolem celé lišty (`border-b border-border`, od `md` se mění na plný border kolem pill tvaru); hardcoded barva `border-white/40` nahrazena theme tokenem `border-border`, protože v dark modu vypadala jako výrazná šedá čára. Theme/jazyk/login tlačítka na mobilu nahrazena hamburger drawerem (`MobileNavDrawer`, `swipeDirection="right"`) s profilem/přihlášením, přepínačem tématu a jazyka (reálné vlajky přes balíček `flag-icons`); desktop layout beze změny (`md:contents`/`md:flex`).
+- Výchozí téma změněno na `light` bez ohledu na systémovou preferenci (`useTheme.tsx`), respektuje se jen uložená volba v `localStorage`.
+- Detail sedadla (`Seat.tsx`) upraven pro mobil — postranní padding u draweru, menší písmo a mezery na `<sm`, ořezání dlouhého názvu typu vstupenky (`truncate`), aby lístek nebyl nalepený na okraj obrazovky.

@@ -63,17 +63,17 @@ export const Seat = React.forwardRef<HTMLDivElement, SeatProps>(
             </div>
           }
         />
-        <DrawerContent className="mx-auto mb-4 flex max-w-lg flex-col gap-2 rounded-2xl bg-transparent [--drawer-bleed-background:transparent]">
+        <DrawerContent className="mx-auto mb-4 flex max-w-lg flex-col gap-2 rounded-2xl bg-transparent px-4 [--drawer-bleed-background:transparent]">
           {/* ticket card */}
           <div className="flex rounded-2xl bg-card shadow-lg">
             <div className="flex min-w-0 flex-1 flex-col">
-              <div className="flex flex-col gap-4 p-4 pt-6">
-                <div className="flex items-center justify-between gap-4">
+              <div className="flex flex-col gap-4 p-3 pt-6 sm:p-4">
+                <div className="flex items-center justify-between gap-2 sm:gap-4">
                   <div className="flex flex-col gap-1">
                     <span className="text-xs font-medium text-muted-foreground uppercase">
                       {t("seat.row")}
                     </span>
-                    <span className="text-2xl font-bold text-foreground">
+                    <span className="text-lg font-bold text-foreground sm:text-2xl">
                       {seatRow}
                     </span>
                   </div>
@@ -82,21 +82,21 @@ export const Seat = React.forwardRef<HTMLDivElement, SeatProps>(
                     <span className="text-xs font-medium text-muted-foreground uppercase">
                       {t("seat.seat")}
                     </span>
-                    <span className="text-2xl font-bold text-foreground">
+                    <span className="text-lg font-bold text-foreground sm:text-2xl">
                       {seat.place}
                     </span>
                   </div>
 
-                  <div className="flex flex-col items-end gap-1 text-right">
+                  <div className="flex min-w-0 flex-col items-end gap-1 text-right">
                     <span className="text-xs font-medium text-muted-foreground uppercase">
                       {t("seat.ticketType")}
                     </span>
-                    <span className="inline-flex items-center gap-1.5">
+                    <span className="inline-flex min-w-0 items-center gap-1.5">
                       <span
                         className="size-2.5 shrink-0 rounded-full"
                         style={{ backgroundColor: color }}
                       />
-                      <span className="text-xl font-bold text-foreground">
+                      <span className="truncate text-base font-bold text-foreground sm:text-xl">
                         {ticketType?.name}
                       </span>
                     </span>
@@ -129,12 +129,12 @@ export const Seat = React.forwardRef<HTMLDivElement, SeatProps>(
                 <div className="absolute inset-x-4 top-1/2 border-t border-dashed border-border" />
               </div>
 
-              <div className="flex items-center justify-between gap-4 p-4">
+              <div className="flex items-center justify-between gap-2 p-3 sm:gap-4 sm:p-4">
                 <div className="flex flex-col gap-1">
                   <span className="text-xs font-medium text-muted-foreground uppercase">
                     {t("seat.totalPrice")}
                   </span>
-                  <span className="text-2xl font-bold text-foreground">
+                  <span className="text-lg font-bold text-foreground sm:text-2xl">
                     {ticketType &&
                       formatCurrency(ticketType.price, currencyIso, dateLocale)}
                   </span>
@@ -154,7 +154,7 @@ export const Seat = React.forwardRef<HTMLDivElement, SeatProps>(
 
             {/* vertical perforation */}
             <div
-              className="relative w-6"
+              className="relative w-4 sm:w-6"
               style={{
                 WebkitMaskImage:
                   "radial-gradient(circle 12px at 50% 0, transparent 99%, black 100%), radial-gradient(circle 12px at 50% 100%, transparent 99%, black 100%)",
@@ -169,7 +169,7 @@ export const Seat = React.forwardRef<HTMLDivElement, SeatProps>(
 
             {/* decorative barcode strip */}
             <div
-              className="my-4 mr-4 w-8 shrink-0 rounded-sm bg-[repeating-linear-gradient(0deg,var(--color-foreground)_0px,var(--color-foreground)_1px,transparent_1px,transparent_3px)] opacity-40"
+              className="my-3 mr-3 w-6 shrink-0 rounded-sm bg-[repeating-linear-gradient(0deg,var(--color-foreground)_0px,var(--color-foreground)_1px,transparent_1px,transparent_3px)] opacity-40 sm:my-4 sm:mr-4 sm:w-8"
               aria-hidden="true"
             />
           </div>
