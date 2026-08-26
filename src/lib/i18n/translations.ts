@@ -76,6 +76,7 @@ export const translations = {
     "login.passwordPlaceholder": "Zadejte své heslo",
     "login.welcome": "Vítejte zpět!",
     "login.submit": "Přihlásit se",
+    "login.fillTestAccount": "Vyplnit testovací účet",
 
     "guest.firstName": "Jméno",
     "guest.lastName": "Příjmení",
@@ -179,6 +180,7 @@ export const translations = {
     "login.passwordPlaceholder": "Enter your password",
     "login.welcome": "Welcome back!",
     "login.submit": "Log in",
+    "login.fillTestAccount": "Fill in test account",
 
     "guest.firstName": "First name",
     "guest.lastName": "Last name",

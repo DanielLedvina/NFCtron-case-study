@@ -30,11 +30,19 @@ interface LoginDrawerProps {
   onLogin: (credentials: LoginRequest) => Promise<AuthUser>;
 }
 
+const TEST_EMAIL = import.meta.env.VITE_NFCTRON_EMAIL;
+const TEST_PASSWORD = import.meta.env.VITE_NFCTRON_PASSWORD;
+
 function useLoginForm(onLogin: (credentials: LoginRequest) => Promise<AuthUser>) {
   const { t } = useLocale();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
+
+  const fillTestAccount = () => {
+    setEmail(TEST_EMAIL ?? "");
+    setPassword(TEST_PASSWORD ?? "");
+  };
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -52,7 +60,15 @@ function useLoginForm(onLogin: (credentials: LoginRequest) => Promise<AuthUser>)
     }
   };
 
-  return { email, setEmail, password, setPassword, isSubmitting, handleSubmit };
+  return {
+    email,
+    setEmail,
+    password,
+    setPassword,
+    isSubmitting,
+    handleSubmit,
+    fillTestAccount,
+  };
 }
 
 function LoginFormFields({
@@ -114,8 +130,16 @@ function LoginFormFields({
 export const LoginDrawer = ({ trigger, onLogin }: LoginDrawerProps) => {
   const { t } = useLocale();
   const isDesktop = useMediaQuery("(min-width: 768px)");
-  const { email, setEmail, password, setPassword, isSubmitting, handleSubmit } =
-    useLoginForm(onLogin);
+  const {
+    email,
+    setEmail,
+    password,
+    setPassword,
+    isSubmitting,
+    handleSubmit,
+    fillTestAccount,
+  } = useLoginForm(onLogin);
+  const canFillTestAccount = !!TEST_EMAIL && !!TEST_PASSWORD;
 
   if (isDesktop) {
     return (
@@ -137,7 +161,7 @@ export const LoginDrawer = ({ trigger, onLogin }: LoginDrawerProps) => {
               setPassword={setPassword}
             />
 
-            <DialogFooter>
+            <DialogFooter className="flex-col gap-2 sm:flex-col">
               <Button
                 type="submit"
                 size="lg"
@@ -147,6 +171,18 @@ export const LoginDrawer = ({ trigger, onLogin }: LoginDrawerProps) => {
                 {isSubmitting && <Loader2 className="animate-spin" />}
                 {t("login.submit")}
               </Button>
+              {canFillTestAccount && (
+                <Button
+                  type="button"
+                  variant="outline"
+                  size="lg"
+                  className="w-full"
+                  onClick={fillTestAccount}
+                  disabled={isSubmitting}
+                >
+                  {t("login.fillTestAccount")}
+                </Button>
+              )}
             </DialogFooter>
           </form>
         </DialogContent>
@@ -173,7 +209,7 @@ export const LoginDrawer = ({ trigger, onLogin }: LoginDrawerProps) => {
             setPassword={setPassword}
           />
 
-          <DrawerFooter className="p-0 mt-2">
+          <DrawerFooter className="p-0 mt-2 gap-2">
             <Button
               type="submit"
               size="lg"
@@ -183,6 +219,18 @@ export const LoginDrawer = ({ trigger, onLogin }: LoginDrawerProps) => {
               {isSubmitting && <Loader2 className="animate-spin" />}
               {t("login.submit")}
             </Button>
+            {canFillTestAccount && (
+              <Button
+                type="button"
+                variant="outline"
+                size="lg"
+                className="w-full"
+                onClick={fillTestAccount}
+                disabled={isSubmitting}
+              >
+                {t("login.fillTestAccount")}
+              </Button>
+            )}
           </DrawerFooter>
         </form>
       </DrawerContent>
