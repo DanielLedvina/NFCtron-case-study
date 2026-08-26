@@ -6,7 +6,8 @@ export async function getEventTickets(
   eventId: string,
 ): Promise<EventTickets> {
   return fetchApi(
-    `/event-tickets?eventId=${eventId}`,
+    // Escape eventId in case it ever contains characters (&, =, ...) that would break the query string.
+    `/event-tickets?eventId=${encodeURIComponent(eventId)}`,
     eventTicketsSchema,
     {},
     "The event was not found",
