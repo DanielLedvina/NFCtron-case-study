@@ -59,3 +59,4 @@
 - `nfctron-logo.png` přidán jako `<link rel="preload">` v `index.html`, aby se stihl načíst souběžně s JS bundlem a nezobrazil se jako rozbitý obrázek při prvním vykreslení skeletonu.
 - `scrollbar-gutter: stable` přidán do `App.css`, aby přechod mezi krátkým skeletonem (bez scrollbaru) a delší skutečnou stránkou (se scrollbarem) nezpůsoboval vodorovný posun obsahu.
 - Odstraněn nepoužívaný translation klíč `app.loading` (nahrazen skeletonem výše).
+- Oprava: řádky sedadel v `AppSkeleton` byly zarovnané doleva (chyběl `items-center`), zatímco skutečná mapa sedadel (`SeatMap`) je horizontálně centrovaná přes `TransformComponent` — skeleton teď layout odpovídá.

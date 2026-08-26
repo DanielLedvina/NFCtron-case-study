@@ -129,7 +129,8 @@ export const AppSkeleton = ({
               </div>
             </div>
 
-            <div className="flex grow flex-col justify-center gap-2 px-6 pb-6">
+            {/* items-center matches SeatMap's TransformComponent, which centers the seat grid horizontally too. */}
+            <div className="flex grow flex-col items-center justify-center gap-2 px-6 pb-6">
               {Array.from({ length: 6 }).map((_, row) => (
                 <div key={row} className="flex items-center gap-3">
                   <Skeleton className="h-4 w-4 shrink-0" />
