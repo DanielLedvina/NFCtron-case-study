@@ -119,6 +119,9 @@
     @apply font-sans;
     scrollbar-width: thin;
     scrollbar-color: var(--color-primary-100) transparent;
+    /* Reserve the scrollbar's space even when it's not needed yet, so content doesn't
+       shift horizontally once the page grows past the viewport (e.g. loading -> loaded). */
+    scrollbar-gutter: stable;
   }
   html::-webkit-scrollbar {
     width: 8px;

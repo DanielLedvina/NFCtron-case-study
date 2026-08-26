@@ -11,6 +11,7 @@ import {
 import "./App.css";
 import { Toaster, toast } from "@/components/ui/toast";
 import { useEventDetail } from "./hooks/useEventDetail";
+import { AppSkeleton } from "./components/AppSkeleton";
 import { EventCard } from "./components/EventCard";
 import { Footer } from "./components/Footer";
 import { LoginDrawer } from "./components/LoginDrawer";
@@ -87,7 +88,15 @@ function App() {
     setStep("seats");
   }
 
-  if (isPending) return t("app.loading");
+  if (isPending)
+    return (
+      <AppSkeleton
+        theme={theme}
+        onToggleTheme={toggleTheme}
+        locale={locale}
+        onToggleLocale={() => setLocale(locale === "cs" ? "en" : "cs")}
+      />
+    );
   if (error) return t("app.error", { message: error.message });
 
   return (

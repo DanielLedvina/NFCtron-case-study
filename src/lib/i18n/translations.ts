@@ -9,7 +9,6 @@ export const translations = {
     "nav.darkMode": "Tmavý režim",
     "nav.english": "English",
     "nav.czech": "Čeština",
-    "app.loading": "Načítání...",
     "app.error": "Došlo k chybě: {{message}}",
     "app.orderPaid": "Objednávka {{orderId}} byla úspěšně zaplacena.",
 
@@ -113,7 +112,6 @@ export const translations = {
     "nav.darkMode": "Dark mode",
     "nav.english": "English",
     "nav.czech": "Čeština",
-    "app.loading": "Loading...",
     "app.error": "An error has occurred: {{message}}",
     "app.orderPaid": "Order {{orderId}} has been paid successfully.",
 
