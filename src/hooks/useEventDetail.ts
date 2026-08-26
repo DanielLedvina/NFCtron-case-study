@@ -10,6 +10,7 @@ export function useEventDetail() {
 
   const eventId = eventQuery.data?.eventId;
 
+  // Ticket fetch depends on the event's id, so it only runs once the event query resolves.
   const ticketQuery = useQuery({
     queryKey: ["tickets", eventId],
     queryFn: () => {

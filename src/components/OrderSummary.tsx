@@ -46,6 +46,7 @@ export const OrderSummary = ({
       ) : (
         <>
           <div className="flex flex-col gap-1.5">
+            {/* Visual only for now — API has no per-ticket holder field, so this isn't wired into createOrder. */}
             <Label htmlFor="ticket-holder">{t("summary.holderLabel")}</Label>
             <Input
               id="ticket-holder"

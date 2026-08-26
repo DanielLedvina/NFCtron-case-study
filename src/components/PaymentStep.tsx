@@ -41,6 +41,7 @@ export const PaymentStep = ({
   const [guestUser, setGuestUser] = useState<OrderUser | undefined>();
   const [isSubmitting, setIsSubmitting] = useState(false);
 
+  // Logged-in user always wins; guest details only matter when not logged in.
   const contact = user ?? guestUser;
 
   const handlePay = async () => {

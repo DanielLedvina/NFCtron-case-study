@@ -25,6 +25,7 @@ export const SeatMap = ({
 }: SeatMapProps) => {
   const { t, dateLocale } = useLocale();
 
+  // API doesn't guarantee row/seat order, so sort explicitly before rendering.
   const sortedRows = useMemo(
     () =>
       [...seatRows]

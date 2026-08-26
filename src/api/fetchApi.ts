@@ -40,6 +40,8 @@ export async function fetchApi<T>(
       throw error;
     }
     if (error instanceof Error && error.name === "AbortError") {
+      // Distinguish an explicit timeout (408) from other network failures (status 0),
+      // since callers may want to react differently (e.g. offer a retry).
       throw new ApiError(`${errorMessage}: request timed out`, 408);
     }
     throw new ApiError(`${errorMessage}: network error`, 0);
