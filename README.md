@@ -106,7 +106,12 @@ npm run dev
 
 Aplikace běží proti veřejnému API na `nfctron-frontend-seating-case-study-2024.vercel.app`
 (viz [API.md](./API.md)) — žádná vlastní API konfigurace není potřeba. Pro přihlášení
-použijte testovací účet z [API.md](./API.md), nebo pokračujte jako host.
+použijte testovací účet z [API.md](./API.md) (tlačítko "Vyplnit testovací účet" v
+přihlašovacím formuláři ho doplní automaticky), nebo pokračujte jako host.
+
+> `.env` je záměrně součástí repozitáře — obsahuje pouze veřejný testovací účet z
+> [API.md](./API.md), ne skutečné tajemství, a je zde jen kvůli pohodlnému vyzkoušení
+> přihlášení. Necommitoval bych ho, kdyby šlo o reálné credentials.
 
 ```bash
 npm run build     # produkční build (tsc + vite build)

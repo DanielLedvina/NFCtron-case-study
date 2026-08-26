@@ -8,6 +8,8 @@
 - Připravení API endpointů pro vstupenky včetně error handlingu a struktury odpovědí ze serveru.
 - API endpoint pro autentifikaci, a úprava konvence funkcí
 - Přidání .env souboru pro credentials a do gitignoru
+- `LoginDrawer` má tlačítko "Vyplnit testovací účet", které doplní přihlašovací pole hodnotami z `.env` (`VITE_NFCTRON_EMAIL`/`VITE_NFCTRON_PASSWORD`), aby si appku šlo hned vyzkoušet bez hledání údajů v `API.md`
+- `.env` je záměrně vyjmutý z `.gitignore` a commitnutý — obsahuje pouze veřejný testovací účet z `API.md`, ne skutečné tajemství, a je potřeba i na Vercelu pro tlačítko výše; kdyby šlo o reálné credentials, zůstal by ignorovaný
 - Přidání blurovaného galaxy pozadí a loga do `public/`, doladění barevné palety (přidán `primary-50`) a základního base stylingu.
 - Přidání shadcn primitivů `drawer`, `input`, `label` pro připravovaný login formulář.
 - Přidání komponenty `EventCard` (detail akce, datum/místo, popis, sdílení) a utility `formatEventDate` pro formátovaný čas.
